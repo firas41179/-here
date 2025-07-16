@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -134,19 +135,25 @@
     </div>
   </div>
 
-  <!-- 🎵 الصوت -->
- <audio id="bgMusic" src="feras_theme.mp3" loop></audio>
+<audio id="bgMusic" src="feras_theme.mp3" loop></audio>
 
-  <script>
-    const music = document.getElementById("bgMusic");
-    window.addEventListener("load", () => {
-      music.play().catch(() => {
-        document.addEventListener("click", () => {
-          music.play();
-        }, { once: true });
-      });
+<script>
+  const music = document.getElementById("bgMusic");
+  music.muted = false;
+  music.volume = 1.0;
+
+  window.addEventListener("load", () => {
+    music.play().then(() => {
+      console.log("✅ الصوت اشتغل تلقائي");
+    }).catch((err) => {
+      console.warn("❌ المتصفح منع التشغيل التلقائي، ننتظر ضغطة", err);
+      document.addEventListener("click", () => {
+        music.play();
+        console.log("✅ اشتغل بعد الضغط");
+      }, { once: true });
     });
-  </script>
+  });
+</script>
 
 </body>
 </html>
